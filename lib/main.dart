@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
 
-          home:  AuthWrapper(),
+          home:  getInitialRoute(),
 
         ) ,
     );
@@ -39,29 +39,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AuthWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final auth = Provider.of<AuthController>(context, listen: false);
-    return StreamBuilder<User?>(
-      stream: auth.auth.authStateChanges(),
-      builder: (context, snapshot) {
+Widget getInitialRoute()
+{
+  var user = FirebaseAuth.instance.currentUser;
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
-
-        // Si l'utilisateur est connecté, on affiche HomeScreen
-        if (snapshot.hasData) {
-          print('Connecter');
-          return HomeScreen();
-        }
-        else{
-        // Si l'utilisateur est déconnecté, on affiche WelcomeScreen
-          print('Non connecté');
-          return WelcomeScreen();
-          }
-        },
-    );
-  }
+  return user != null ? HomeScreen() : const WelcomeScreen();
 }

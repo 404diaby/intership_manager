@@ -26,7 +26,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
         title: Text("Inscription"),
       ),
       body: Center(
@@ -36,7 +39,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             SizedBox(
               width: 300,
               child: TextField(
-                //controller: emailController ,
+                controller: auth.firstNameController,
                 decoration: InputDecoration(
                     labelText: "Nom", border: OutlineInputBorder()),
               ),
@@ -47,6 +50,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             SizedBox(
               width: 300,
               child: TextField(
+                controller: auth.lastNameController,
                 decoration: InputDecoration(
                     labelText: "Prénom", border: OutlineInputBorder()),
               ),
@@ -112,7 +116,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             CustomButtom(
                 elevetedButtonText: "S'incrire",
                 fieldButtonText: "Déja un compte ? Se connecter",
-                clickElevated: () => signUp(context),
+                clickElevated: () {
+                  if (_selectedGender == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text("Aucun genre selectionner"))
+                    );
+                    return;
+                  }
+                  auth.createUserWithEmailAndPassword(
+                      auth.emailController.text.trim(),
+                      auth.passwordController.text.trim(),
+                      context);
+                },
                 clickField: () {
                   Navigator.push(
                     context,
@@ -123,46 +139,5 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
     );
-  }
-
-
-  void signUp(context) async {
-
-    final auth = Provider.of<AuthController>(context, listen: false);
-
-    if(_selectedGender == null){
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text("Aucun genre selectionner"))
-      );
-      return;
-    }
-    try{
-      await auth.createUserWithEmailAndPassword(
-        auth.emailController.text.trim(),
-        auth.passwordController.text.trim()
-      ).then((user) async {
-        if(user != null){
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text("Inscription réussi")
-            ),
-          );
-          Navigator.push(context, MaterialPageRoute( builder: (context) => HomeScreen()));
-        }else{
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text("Echec de l'inscription")
-            ),
-          );
-        }
-      });
-    }catch(e){
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content: Text("Erreur lors de la procédure d'inscription : $e"))
-        );
-
-      }
   }
 }

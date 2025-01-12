@@ -1,6 +1,11 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:intership_manager/screens/login_screen.dart';
+import 'package:intership_manager/screens/welcome_screen.dart';
+
+import '../screens/home_screen.dart';
 
 class AuthController extends ChangeNotifier{
   final auth = FirebaseAuth.instance;
@@ -11,55 +16,72 @@ class AuthController extends ChangeNotifier{
   final TextEditingController firstNameController = TextEditingController();
 
 
-  Future<User?> createUserWithEmailAndPassword(String email, String password) async {
-    try{
-      final credential = await auth.createUserWithEmailAndPassword(email: email, password: password);
+  Future<void> createUserWithEmailAndPassword(String email, String password, BuildContext context) async {
+
+    if(email.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('E-mail obligatoire')),
+      );
+    }else if (password.length < 8){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Le mot de passe doit contenir au moins 8 caractères')),
+      );
+    } else{
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
       notifyListeners();
-
-      return credential.user;
-    }catch(e){
-      print("Erreur lors de l'inscription");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Inscription réussie 👍 Connectez-vous !!!')),
+      );
     }
-    return null;
-
   }
 
 
-  Future<User?> loginUserWithEmailAndPassword(String email, String password) async {
+  Future<void> loginUserWithEmailAndPassword(String email, String password, BuildContext context) async {
     try{
-
       final credential = await auth.signInWithEmailAndPassword(email: email, password: password);
-      return credential.user;
-    }catch(e){
-      print("Erreur lors de la connexion");
+      notifyListeners();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Connexion réussie !')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('identifiant incorrect')),
+      );
     }
-
-    return null;
-
   }
 
 
-  Future<bool> logOut() async {
+  Future<bool?> logOut(BuildContext context) async {
     try{
       await auth.signOut();
-      print("Déconnexion réussie");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("Déconnexion réussi")
+        ),
+      );
+      Navigator.push(context, MaterialPageRoute( builder: (context) => WelcomeScreen()));
       return true;
     }catch(e){
-      print("Echec de la deconnexion");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Echec de la déconnexion")
+        ),
+        );
+      print("Erreur: $e");
       return false;
     }
-
   }
 
-  Future<User?> getCurrentUser() async{
-     try {
-       final credential = auth.currentUser;
-       print(credential);
-       return credential;
-     } catch (e) {
-       return null;
-     }
-   }
+
 
 
 

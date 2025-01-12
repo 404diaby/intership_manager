@@ -16,7 +16,7 @@ class MySidebarX extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final auth = Provider.of<AuthController>(context, listen: false);
     return SidebarX(
       controller: _controller,
       headerBuilder: (context, extended) {
@@ -50,45 +50,17 @@ class MySidebarX extends StatelessWidget {
         SidebarXItem(
           icon: Icons.power_settings_new,
           label: 'Déconnexion',
-          onTap: () => logOut(context),
+          onTap: () => auth.logOut(context),
         ),
       ],
     );
   }
 
 
-  void logOut(context) async {
-    final auth = Provider.of<AuthController>(context, listen: false);
-    try{
-      await auth.logOut()
-          .then((isSignOut) async {
-        if(isSignOut == true){
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text("Déconnexion réussi")
-            ),
-          );
-          Navigator.push(context, MaterialPageRoute( builder: (context) => WelcomeScreen()));
-        }else{
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text("Echec de la déconnexion")
-            ),
-          );
-        }
-      });
-    }catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text("Erreur lors de la connexion : $e"))
-      );
-
-    }
-
   }
 
 
 
 
 
-}
+

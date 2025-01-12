@@ -14,14 +14,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthController>(context, listen: false);
-    final Future<User?> user = auth.getCurrentUser();
-
+    var user = auth.auth.currentUser!.email;
     return  Builder(
           builder: (context) {
             return Scaffold(
               appBar: AppBar(
-                title: FutureBuilder<User?>(
-                  future: user, // Appel asynchrone
+                title:/*FutureBuilder<User?>(
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Text('Chargement...');
@@ -30,8 +28,10 @@ class HomeScreen extends StatelessWidget {
                     } else {
                       return Text('Utilisateur non connecté');
                     }
-                  },
-                ),
+                  }, // Appel asynchrone
+                  future: user,
+                ),*/
+                Text('Bienvenu $user'),
               ),
               drawer: MySidebarX(
                 controller: _controller ,

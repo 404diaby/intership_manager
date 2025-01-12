@@ -48,7 +48,12 @@ class _LoginScreenState extends State<LoginScreen> {
             CustomButtom(
                 elevetedButtonText: "Se connecter",
                 fieldButtonText: "Pas de compte ? S'incrire",
-                clickElevated: () => logIn(context),
+                clickElevated: () {
+                  auth.loginUserWithEmailAndPassword(
+                      auth.emailController.text.trim(),
+                      auth.passwordController.text.trim(),
+                      context);
+                },
                 clickField: () {
                   Navigator.push(
                     context,
@@ -60,38 +65,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  void logIn(context) async {
-    final auth = Provider.of<AuthController>(context, listen: false);
-
-    try{
-      await auth.loginUserWithEmailAndPassword(
-          auth.emailController.text.trim(), auth.passwordController.text.trim())
-      .then((user) async {
-        if(user != null){
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text("Connexion réussi")
-            ),
-          );
-          Navigator.push(context, MaterialPageRoute( builder: (context) => HomeScreen()));
-        }else{
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text("Echec de la connexion")
-            ),
-          );
-        }
-      });
-    }catch(e){
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text("Erreur lors de la connexion : $e"))
-        );
-
-    }
-
   }
 
 }
