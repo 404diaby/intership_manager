@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "524279931525",
+    "project_id": "intership-manager",
+    "storage_bucket": "intership-manager.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524279931525:android:2116845f1201013bb7ffec",
+        "android_client_info": {
+          "package_name": "com.example.intership_manager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeOXxVwuBCNvp7evKYgbTRLxBu0dgqd9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
