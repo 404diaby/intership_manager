@@ -11,21 +11,21 @@ Imaginez LPMI - Manager comme votre futur outil indispensable pour tout ce qui c
 
 ## Preview
 ### Version mobile
-<img width="278" alt="preview desktop" src="/img/1.png" />
-
-<img width="278" alt="preview desktop" src="/img/2.png" />
-
-<img width="278" alt="preview desktop" src="/img/3.png" />
-
-<img width="278" alt="preview desktop" src="/img/4.png" />
-
-<img width="278" alt="preview desktop" src="/img/5.png" />
-
-<img width="278" alt="preview desktop" src="/img/6.png" />
-
-<img width="278" alt="preview desktop" src="/img/7.png" />
+<img width="307" alt="1" src="https://github.com/user-attachments/assets/80acd227-02a1-41a2-aaff-24bfc162faf4" />
+ 
+<img width="307" alt="2" src="https://github.com/user-attachments/assets/9f19330f-5f72-4d13-b418-1e1eeca4a7b9" />
 
 
+<img width="307" alt="3" src="https://github.com/user-attachments/assets/eb635c95-4099-4088-9d3a-8970f39cef42" />
+
+
+<img width="307" alt="4" src="https://github.com/user-attachments/assets/818102a5-7eca-4aaa-bea8-fdc8d17eb4bc" />
+
+<img width="307" alt="5" src="https://github.com/user-attachments/assets/f7a42aa7-ef33-4629-bf33-435d2d0415ab" />
+
+<img width="307" alt="6" src="https://github.com/user-attachments/assets/00bc0ec3-b4de-4b9f-8e66-459e621c78bf" />
+
+<img width="307" alt="7" src="https://github.com/user-attachments/assets/e49fcedf-7e85-47d5-ac36-ca13cc90b400" />
 
 
 
