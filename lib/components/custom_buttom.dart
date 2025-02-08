@@ -17,9 +17,9 @@ class CustomButtom extends StatelessWidget {
     return  Column(
       children: [
         SizedBox(height: 30,),
-        ElevatedButton(onPressed:  this.clickElevated  , child: Text(this.elevetedButtonText)),
+        ElevatedButton(onPressed:  clickElevated  , child: Text(elevetedButtonText)),
         SizedBox(height: 30,),
-        TextButton(onPressed: this.clickField, child: Text(this.fieldButtonText))
+        TextButton(onPressed: clickField, child: Text(fieldButtonText))
       ],
     );
   }

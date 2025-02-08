@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthController>(context, listen: false);
-    var user = auth.auth.currentUser!.email;
+    var user = auth.auth.currentUser!.displayName;
     return  Builder(
           builder: (context) {
             return Scaffold(
